@@ -1,0 +1,10 @@
+group 'mff'
+version '1.0.0'
+
+subprojects {
+    apply plugin : "java"
+
+    repositories {
+        mavenCentral()
+    }
+}
