@@ -26,12 +26,12 @@
 <jsp:include page="./header.jsp" />
 <h1><%=LocalizationHelper.getInstance().getText(lang, "TITLE_CARD_EFFECT") %></h1>
 
-<div>
+<h3>
 <span><a href='./UserCardCollection?lang=<%=lang%>'>User Card Collection</a></span> |
 <span><a href='./UserCardList?lang=<%=lang%>'>User Card List</a></span> |
+<span><a href='./userAddNewCard.jsp?lang=<%=lang%>'>Add New Card</a></span> |
 <span><a href='./LoadProfile?lang=<%=lang%>'>Load Profile</a></span>
-</div>
-
+</h3>
 
 <div>
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -55,7 +55,7 @@
   <label for="tokenid">Token ID: </label>
   <input type="text" class="form-control" id="tokenid" name="tokenid" value="<c:out value='${sessionScope.tknid }' />">
 </div>
-<button type="submit" class="btn btn-default">Load</button>
+<button type="submit" class="btn btn-primary btn-lg">Load</button>
 </form>
 
 </div>

@@ -4,30 +4,23 @@ import com.ethan.marvel.usercards.UserCard;
 import com.ethan.marvel.usercards.UserCardDAO;
 import com.ethan.marvel.utils.RandomIdGenerator;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
 
 /**
- * Created by Ethan Yin-Hao Tsui on 2018/4/10.
+ * Created by Ethan Yin-Hao Tsui on 2018/4/11.
  */
-@WebServlet("/AddNewCard")
-public class AddNewCard extends HttpServlet {
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AddNewCard() {
+@WebServlet("/UserCollection")
+public class UserCollection extends HttpServlet {
+
+    public UserCollection() {
         super();
-
     }
-
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
@@ -71,13 +64,6 @@ public class AddNewCard extends HttpServlet {
             e.printStackTrace();
             response.getWriter().print("[ERROR]"+e);
         }
-
-    }
-
-    /**
-     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-     */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 }

@@ -109,5 +109,30 @@ public class CardAbility {
 
     }
 
-    
+
+
+    public String getDescription(String lang) {
+        StringBuilder sb = new StringBuilder(100);
+        if (abilityId.equals("0")) {
+            sb.append(LocalizationHelper.getInstance()
+                    .getText(lang, "AUTO_ABILITY_DESC_" + getAbilityDescId())
+                    .replace("{0}", getAutoAbilityRate()) + ":"
+                    + LocalizationHelper.getInstance().getText(lang, "ABILITY_" + getAutoAbilityId())
+                    +" "+getAutoValue()+"%"
+                    + " "+LocalizationHelper.getInstance().getText(lang, "ABILITY_DESC_TIME").replace("{0}", getAutoTime()));
+        } else {
+            sb.append(LocalizationHelper.getInstance().getText(lang, "ABILITY_" + abilityId));
+        }
+        return sb.toString();
+    }
+
+
+    public String getFullId() {
+        if (abilityId.equals("0")) {
+            return "0:"+autoAbilityId+"_"+getAbilityDescId() +"_"+getAutoAbilityRate()+"_"+getAutoValue()+"_"+getAutoTime();
+        }
+        else {
+            return abilityId;
+        }
+    }
 }

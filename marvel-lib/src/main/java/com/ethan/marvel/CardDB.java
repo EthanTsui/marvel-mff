@@ -328,15 +328,10 @@ public class CardDB {
                     if (ca.abilityId.equals("0")) {
                         System.out.print(ca.autoAbilityId+"_"+ca.getAbilityDescId() +"_"+ca.getAutoAbilityRate()+"_"+ca.getAutoValue()+"_"+ca.getAutoTime()
                                 + ":"
-                                + LocalizationHelper.getInstance()
-                                        .getText("en", "AUTO_ABILITY_DESC_" + ca.getAbilityDescId())
-                                        .replace("{0}", ca.getAutoAbilityRate()) + ":"
-                                + LocalizationHelper.getInstance().getText("en", "ABILITY_" + ca.getAutoAbilityId())
-                                +" "+ca.getAutoValue()+"%"
-                                + " "+LocalizationHelper.getInstance().getText("en", "ABILITY_DESC_TIME").replace("{0}", ca.getAutoTime()));
+                                +ca.getDescription("en"));
                     } else {
                         System.out.print(ca.abilityId + ":"
-                                + LocalizationHelper.getInstance().getText("en", "ABILITY_" + ca.abilityId) + ", ");
+                                + ca.getDescription("en")+", ");
                     }
                 }
                 System.out.print("\t");
