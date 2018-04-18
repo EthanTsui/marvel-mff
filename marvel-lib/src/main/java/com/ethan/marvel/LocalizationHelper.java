@@ -59,6 +59,10 @@ public class LocalizationHelper {
     }
     
     public String getText(String language, String key) {
+        if(language==null) {
+            language="en";
+        }
         return localizationMap.get(language).getData(key, "TEXT");
     }
 }
+
