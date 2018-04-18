@@ -39,8 +39,9 @@
 
 
 <form method='get' action='./UserLoadProfile'>
+<input type='hidden' name='lang' value='<%=lang %>' />
 <div class="form-group">
-  <label for="tokenid">Token ID: </label>
+  <label for="tokenid">Token Id: </label>
   <input type="text" class="form-control" id="tokenid" name="tokenid" value="<c:out value='${sessionScope.tknid }' />">
 </div>
 <button type="submit" class="btn btn-primary btn-lg"><%=LanguageHelper.getInstance().getInterfaceName(lang, "user.card.load.profile.load") %></button>

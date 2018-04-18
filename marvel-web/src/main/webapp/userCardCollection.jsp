@@ -25,6 +25,24 @@
 <title><%=LanguageHelper.getInstance().getInterfaceName(lang, "user.card.collection.title") %></title>
 <jsp:include page="./head_include.jsp" />
 
+<style>
+
+.thumbnail {
+    position: relative;
+}
+
+.caption {
+    position: absolute;
+    top: 90%;
+    left: 88%;
+    width: 20px;
+    background-color: #0b44ef;
+    color: white;
+    text-align: center;
+}
+
+</style>
+
 </head>
 <body>
 <div class="container">
@@ -40,7 +58,7 @@
 
 <div class="card">
   <div class="card-body">
-    <c:out value='${sessionScope.tknid }' />
+    Token Id: <c:out value='${sessionScope.tknid }' />
   </div>
 </div>
 
@@ -69,9 +87,10 @@
   %>
   <div class="col">
   <div class="card">
+  <div class="thumbnail">
      <img class="card-img-top" src="img/ncc_<%=collection.getSlotCard(i).getCardId() %>.png" style="max-width:100%" />
-
-
+     <div class="caption"><%=collection.getSlotCard(i).getLevel() %></div>
+  </div>
       <%
         }
        else {

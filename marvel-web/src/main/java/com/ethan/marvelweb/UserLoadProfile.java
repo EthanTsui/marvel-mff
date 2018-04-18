@@ -44,7 +44,7 @@ public class UserLoadProfile extends HttpServlet {
 
 	    }
 
-	    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/userLoadProfile.jsp");
+	    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/userLoadProfile.jsp?lang="+request.getParameter("lang"));
         dispatcher.forward(request,response);
 	}
 

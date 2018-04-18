@@ -54,7 +54,7 @@ input[type=radio]:checked + label {
 
 <div class="card">
   <div class="card-body">
-    <c:out value='${sessionScope.tknid }' />
+    Token Id: <c:out value='${sessionScope.tknid }' />
   </div>
 </div>
 

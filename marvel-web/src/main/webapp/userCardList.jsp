@@ -31,6 +31,20 @@
   }
 }
 
+.thumbnail {
+    position: relative;
+}
+
+.caption {
+    position: absolute;
+    top: 90%;
+    left: 88%;
+    width: 20px;
+    background-color: #0b44ef;
+    color: white;
+    text-align: center;
+}
+
 </style>
 
 </head>
@@ -46,8 +60,11 @@
 <!-- <span><a href='./UserLoadProfile?lang=<%=lang%>'><%=LanguageHelper.getInstance().getInterfaceName(lang, "user.card.load.profile") %></a></span> -->
 </h3>
 
-<c:out value='${sessionScope.tknid }' />
-
+<div class="card">
+  <div class="card-body">
+    Token Id: <c:out value='${sessionScope.tknid }' />
+  </div>
+</div>
 <div class="container-fluid mt-4">
     <div class="row justify-content-center">
 
@@ -57,14 +74,15 @@
 %>
        <div class="col-auto mb-3">
        <div class="card" style="width: 18rem;">
+         <div class="thumbnail">
          <img class="card-img-top" src="img/ncc_<%=card.getCardId() %>.png" style="max-width:100%"/>
+         <div class="caption"><%=card.getLevel() %></div>
+         </div>
          <div class="card-body">
 
          <h5 class="card-title"><%= LocalizationHelper.getInstance().getText(lang, "ITEM_"+CardDB.getInstance().getCard(card.getCardId()).getCardItemId()) %></h5>
          </div>
          <div class="card-body"><p>
-         Level-<%=card.getLevel() %>
-         <br/>
          <%
 
            for(int i=1;i<=6;i++) {
