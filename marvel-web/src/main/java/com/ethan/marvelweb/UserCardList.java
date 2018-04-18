@@ -34,9 +34,11 @@ public class UserCardList extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    try {
-	        
-	    UserCardDAO dao = new UserCardDAO();
+		UserCardDAO dao = null;
+
+		try {
+
+		dao = new UserCardDAO();
 		
 		HttpSession session = request.getSession();
 		
@@ -55,7 +57,14 @@ public class UserCardList extends HttpServlet {
             e.printStackTrace();
             response.getWriter().print("[ERROR]"+e);
         }
-		
+		finally {
+			try {
+				if(dao!=null) {
+					dao.closeConnection();
+				}
+			}
+			catch (Exception ignore) { }
+		}
 	}
 
 	/**

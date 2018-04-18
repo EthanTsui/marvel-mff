@@ -18,44 +18,32 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title><%=LocalizationHelper.getInstance().getText(lang, "TITLE_CARD_EFFECT") %></title>
+<title><%=LanguageHelper.getInstance().getInterfaceName(lang, "user.card.load.profile") %></title>
 <jsp:include page="./head_include.jsp" />
 
 </head>
 <body>
 <jsp:include page="./header.jsp" />
-<h1><%=LocalizationHelper.getInstance().getText(lang, "TITLE_CARD_EFFECT") %></h1>
+<h1><%=LanguageHelper.getInstance().getInterfaceName(lang, "user.card.load.profile") %></h1>
 
 <h3>
-<span><a href='./UserCardCollection?lang=<%=lang%>'>User Card Collection</a></span> |
-<span><a href='./UserCardList?lang=<%=lang%>'>User Card List</a></span> |
-<span><a href='./userAddNewCard.jsp?lang=<%=lang%>'>Add New Card</a></span> |
-<span><a href='./LoadProfile?lang=<%=lang%>'>Load Profile</a></span>
+<span><a href='./UserCardCollection?lang=<%=lang%>'><%=LanguageHelper.getInstance().getInterfaceName(lang, "user.card.collection.title") %></a></span> |
+<span><a href='./UserCardList?lang=<%=lang%>'><%=LanguageHelper.getInstance().getInterfaceName(lang, "user.card.list.title") %></a></span> |
+<span><a href='./userAddNewCard.jsp?lang=<%=lang%>'><%=LanguageHelper.getInstance().getInterfaceName(lang, "user.card.new.card") %></a></span> |
+<!-- <span><a href='./UserLoadProfile?lang=<%=lang%>'><%=LanguageHelper.getInstance().getInterfaceName(lang, "user.card.load.profile") %></a></span> -->
 </h3>
-
-<div>
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<!-- rectangle ad1 -->
-<ins class="adsbygoogle"
-     style="display:inline-block;width:300px;height:250px"
-     data-ad-client="ca-pub-7688138317444669"
-     data-ad-slot="8380513834"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-</div>
 
 <div class="panel-body">
 <div class="panel panel-default">
 <div class="panel-body">
 
 
-<form method='get' action='./LoadProfile'>
+<form method='get' action='./UserLoadProfile'>
 <div class="form-group">
   <label for="tokenid">Token ID: </label>
   <input type="text" class="form-control" id="tokenid" name="tokenid" value="<c:out value='${sessionScope.tknid }' />">
 </div>
-<button type="submit" class="btn btn-primary btn-lg">Load</button>
+<button type="submit" class="btn btn-primary btn-lg"><%=LanguageHelper.getInstance().getInterfaceName(lang, "user.card.load.profile.load") %></button>
 </form>
 
 </div>

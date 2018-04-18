@@ -211,6 +211,9 @@ public class LanguageHelper {
         if(!interfaceMap.containsKey(language)) {
             language="en";
         }
+        if(!language.equals("en") && !interfaceMap.get(language).containsKey(interfaceKey)) {
+            return interfaceMap.get("en").get(interfaceKey);
+        }
         return interfaceMap.get(language).get(interfaceKey);
     }
 }

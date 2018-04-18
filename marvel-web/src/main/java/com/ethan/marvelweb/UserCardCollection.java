@@ -1,7 +1,7 @@
 package com.ethan.marvelweb;
 
-import com.ethan.marvel.usercards.UserCard;
 import com.ethan.marvel.usercards.UserCardDAO;
+import com.ethan.marvel.usercards.UserCollection;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,31 +10,36 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Ethan Yin-Hao Tsui on 2018/4/11.
  */
-@WebServlet("/UserModifyCard")
-public class UserModifyCard extends HttpServlet {
+@WebServlet("/UserCardCollection")
+public class UserCardCollection extends HttpServlet {
 
-
-
+    public UserCardCollection() {
+        super();
+    }
     /**
-     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         UserCardDAO dao = null;
+
         try {
             dao = new UserCardDAO();
-            UserCard card = dao.getUserCard(request.getParameter("cuid"));
-            request.setAttribute("usercard", card);
+            List<UserCollection> collections = dao.getAllUserCollection((String)request.getSession().getAttribute("tknid"));
+            request.setAttribute("collections", collections);
 
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/userAddNewCard.jsp?cardid=" + card.getCardId()+"&lang="+request.getParameter("lang"));
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/userCardCollection.jsp?lang="+request.getParameter("lang"));
             dispatcher.forward(request,response);
 
-        }
-        catch (Exception err) {
-            err.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.getWriter().print("[ERROR]"+e);
 
         }
         finally {
@@ -45,6 +50,5 @@ public class UserModifyCard extends HttpServlet {
             }
             catch (Exception ignore) { }
         }
-
     }
 }

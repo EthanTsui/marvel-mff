@@ -183,7 +183,7 @@ List<Hero> uheroes=HeroDB.getInstance().listByHeroType("u");
 
 </head>
 <body>
-
+<div class="container">
 <%
 String lang="en";
 if(request.getParameter("lang")!=null && request.getParameter("lang").length()>0) {
@@ -202,17 +202,17 @@ if(request.getParameter("lang")!=null && request.getParameter("lang").length()>0
 <%
 }%>
 
-<input type="button" class="btn btn-default" name="uncheck" value="<%=LanguageHelper.getInstance().getInterfaceName(lang, "tq.unselect.all") %>" onclick="uncheckAll()"/>
+<div>
+<button type="button" class="btn btn-outline-primary" name="uncheck" onclick="uncheckAll()"><%=LanguageHelper.getInstance().getInterfaceName(lang, "tq.unselect.all") %></button>
+</div>
 
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title"><%=LanguageHelper.getInstance().getInterfaceName(lang, "tq.select.heroes") %></h3>
-  </div>
-  <div class="panel-body">
-  <div class="panel panel-default">
-  <div class="panel-heading"><%=LanguageHelper.getInstance().getInterfaceName(lang, "hero.type.c") %></div>
-  <div class="panel-body">
-  <div><input type="button" name="bsac" onclick="checkAll('c')" value="Select All"/></div>
+<div class="card">
+  <h3 class="card-title"><%=LanguageHelper.getInstance().getInterfaceName(lang, "tq.select.heroes") %></h3>
+</div>
+<div class="card">
+  <div class="card-title"><%=LanguageHelper.getInstance().getInterfaceName(lang, "hero.type.c") %></div>
+  <div class="card-body"><button type="button" class="btn btn-outline-primary" name="bsac" onclick="checkAll('c')">Select All</button></div>
+  <div class="card-body">
   <%
   List<Hero> heroes = HeroDB.getInstance().getHeros();
   HashMap<Integer, Integer> list = new HashMap<Integer, Integer>();
@@ -260,16 +260,15 @@ if(request.getParameter("lang")!=null && request.getParameter("lang").length()>0
      }
      
      %>
-    
-  </div>
-</div>
+    </div>
 </div>
 
-  <div class="panel-body">
-  <div class="panel panel-default">
-  <div class="panel-heading"><%=LanguageHelper.getInstance().getInterfaceName(lang, "hero.type.b") %></div>
-  <div class="panel-body">
-  <div><input type="button" name="bsab" onclick="checkAll('b')" value="Select All"/></div>
+
+
+  <div class="card">
+  <div class="card-body"><%=LanguageHelper.getInstance().getInterfaceName(lang, "hero.type.b") %></div>
+  <div class="card-body"><button type="button" class="btn btn-outline-primary" name="bsab" onclick="checkAll('b')">Select All</button></div>
+  <div class="card-body">
   <%
   for(Hero hero:bheroes) {
       %>
@@ -310,13 +309,11 @@ if(request.getParameter("lang")!=null && request.getParameter("lang").length()>0
     
   </div>
 </div>
-</div>
 
-  <div class="panel-body">
-  <div class="panel panel-default">
-  <div class="panel-heading"><%=LanguageHelper.getInstance().getInterfaceName(lang, "hero.type.s") %></div>
-  <div class="panel-body">
-  <div><input type="button" name="bsas" onclick="checkAll('s')" value="Select All"/></div>
+  <div class="card">
+  <div class="card-body"><%=LanguageHelper.getInstance().getInterfaceName(lang, "hero.type.s") %></div>
+  <div class="card-body"><button type="button" class="btn btn-outline-primary" name="bsas" onclick="checkAll('s')">Select All</button></div>
+  <div class="card-body">
   <%
   for(Hero hero:sheroes) {
       %>
@@ -357,14 +354,12 @@ if(request.getParameter("lang")!=null && request.getParameter("lang").length()>0
     
   </div>
 </div>
-</div>
 
 
-  <div class="panel-body">
-  <div class="panel panel-default">
-  <div class="panel-heading"><%=LanguageHelper.getInstance().getInterfaceName(lang, "hero.type.u") %></div>
-  <div class="panel-body">
-  <div><input type="button" name="bsau" onclick="checkAll('u')" value="Select All"/></div>
+  <div class="card">
+  <div class="card-body"><%=LanguageHelper.getInstance().getInterfaceName(lang, "hero.type.u") %></div>
+  <div class="card-body"><button type="button" class="btn btn-outline-primary" name="bsau" onclick="checkAll('u')">Select All</button></div>
+  <div class="card-body">
   <%
   for(Hero hero:uheroes) {
       %>
@@ -405,7 +400,6 @@ if(request.getParameter("lang")!=null && request.getParameter("lang").length()>0
     
   </div>
 </div>
-</div>
 
 
 
@@ -413,11 +407,10 @@ if(request.getParameter("lang")!=null && request.getParameter("lang").length()>0
 </div>
 
 
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title"><%=LanguageHelper.getInstance().getInterfaceName(lang, "tq.select.must.exist") %></h3>
-  </div>
-  <div class="panel-body">
+<div class="card">
+    <h3 class="card-title"><%=LanguageHelper.getInstance().getInterfaceName(lang, "tq.select.must.exist") %></h3>
+
+  <div class="card-body">
 <%
 HashMap<Integer, Integer> listprio = new HashMap<Integer, Integer>();
 if(request.getParameter("heroteam")!=null && request.getParameter("heroteam").length()>0) {
@@ -549,7 +542,7 @@ checked="checked"
 </div>
 
 
-<div><input type="button" class="btn btn-default" name="sub1" value="<%=LanguageHelper.getInstance().getInterfaceName(lang, "tq.query") %>" onclick="query()"/></div>
+<div><button type="button" class="btn btn-primary" name="sub1" onclick="query()"><%=LanguageHelper.getInstance().getInterfaceName(lang, "tq.query") %></button></div>
 </form>
 <br/>
 </div>
@@ -641,5 +634,6 @@ checked="checked"
 <script>
 generateHeroTeam();
 </script>
+</div>
 </body>
 </html>

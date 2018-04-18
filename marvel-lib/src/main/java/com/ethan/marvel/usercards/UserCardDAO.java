@@ -9,9 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
+import java.util.*;
 
 import com.ethan.marvel.utils.RandomIdGenerator;
 
@@ -28,10 +26,16 @@ public class UserCardDAO {
     public static void main(String[] args) {
         UserCardDAO udao = new UserCardDAO();
 
-        udao.test();
-        
-        
-        
+//        udao.test();
+        udao.testCollection();
+
+
+        try {
+            udao.closeConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
     
     
@@ -76,7 +80,41 @@ public class UserCardDAO {
             
         }
     }
-    
+
+
+    public void testCollection() {
+        try {
+            UserCardDAO dao = new UserCardDAO();
+
+            UserCollection collection = new UserCollection();
+
+            collection.setTokenId("ETHAN6BcbgNDQFAnXkax");
+
+            collection.setCollectionUId(RandomIdGenerator.generateRandomIds(20));
+
+            collection.setSlotCard(1, dao.getUserCard("4n1VRq4Q2IUQFwITcM1g"));
+
+            collection.setSlotCard(2, dao.getUserCard("Ldc3VJ1V8yZASqffjQyO"));
+
+            collection.setSlotCard(3, dao.getUserCard("sywgSJOsEYvv4lknjcgV"));
+
+            collection.setSlotCard(4, dao.getUserCard("nU1Oo3EEKYnjSx8cc0L8"));
+
+            collection.setSlotCard(5, dao.getUserCard("2vyr7tndx7UPZHYwHwW0"));
+
+            collection.reCalculateSkills();
+
+            dao.upsertUserCollection(collection);
+
+            dao.closeConnection();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
     
     private Connection getConnection() throws SQLException {
         if(conn==null) {
@@ -104,6 +142,7 @@ public class UserCardDAO {
     
     public void upsertUserCard(UserCard card) throws SQLException {
         PreparedStatement psMerge = getConnection().prepareStatement("MERGE INTO card_list (token_id,card_uid,card_id,level,option1,option2,option3,option4,option5,option6,update_st) KEY(token_id,card_uid) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+
         psMerge.setString(1, card.getTokenId());
         psMerge.setString(2, card.getCardUId());
         psMerge.setInt(3, card.getCardId());
@@ -146,15 +185,18 @@ public class UserCardDAO {
         card.setCardUId(rs.getString("card_uid"));
         card.setCardId(rs.getInt("card_id"));
         card.setLevel(rs.getInt("level"));
+
         for(int i=1;i<=6;i++) {
             card.setOptions(i, rs.getString("option"+i));
         }
+
         card.setInsertSt(rs.getDate("insert_st"));
         card.setUpdateSt(rs.getDate("update_st"));
     }
     
     public List<UserCard> getUserCards(String tokenId) throws SQLException {
         List<UserCard> cards = new ArrayList<UserCard>();
+
         PreparedStatement ps = getConnection().prepareStatement("select * from card_list where token_id=? order by update_st");
         ps.setString(1,  tokenId);
         ResultSet rs = ps.executeQuery();
@@ -176,6 +218,94 @@ public class UserCardDAO {
     }
 
 
+    public List<UserCollection> getAllUserCollection(String tokenId) throws SQLException {
+        List<UserCollection> collections = new ArrayList<UserCollection>();
+        PreparedStatement ps = getConnection().prepareStatement("select * from card_collection where token_id=? order by insert_st");
 
+        ps.setString(1, tokenId);
+
+        ResultSet rs = ps.executeQuery();
+
+        while(rs.next()) {
+            UserCollection collection = new UserCollection();
+
+            fillUserCollection(rs, collection);
+
+            collections.add(collection);
+
+        }
+
+        return collections;
+    }
+
+    private void fillUserCollection(ResultSet rs, UserCollection collection) throws SQLException {
+        collection.setTokenId(rs.getString("token_id"));
+        collection.setCollectionUId(rs.getString("collection_uid"));
+
+        for(int i=1;i<=5;i++) {
+            String slotCard = rs.getString("slot"+i+"_id");
+            if(slotCard!=null) {
+                collection.setSlotCard(i, getUserCard(slotCard));
+            }
+        }
+
+        for(String skillId:UserCollection.SKILL_ID) {
+            float v = rs.getFloat("sk_"+skillId);
+            collection.setSkill(skillId, v);
+        }
+
+        collection.setInsertSt(rs.getDate("insert_st"));
+
+        collection.setUpdateSt(rs.getDate("update_st"));
+    }
+
+    public void upsertUserCollection(UserCollection collection) throws SQLException {
+        PreparedStatement psMerge = getConnection().prepareStatement("MERGE INTO card_collection " +
+                "(token_id,collection_uid,slot1_id,slot2_id,slot3_id,slot4_id,slot5_id," +
+                "sk_9,sk_26,sk_25,sk_9_26,sk_9_25,sk_10,sk_27,sk_28,sk_10_27,sk_10_28," +
+                "sk_4,sk_5,sk_103,sk_32,sk_36,sk_34,sk_35,sk_33,sk_11,sk_29,sk_6,sk_7," +
+                "sk_19,sk_8,sk_20,update_st) KEY(token_id,collection_uid) VALUES " +
+                "(?,?,?,?,?,?,?,?,?,?," +
+                "?,?,?,?,?,?,?,?,?,?," +
+                "?,?,?,?,?,?,?,?,?,?," +
+                "?,?,?)");
+
+        psMerge.setString(1, collection.getTokenId());
+        psMerge.setString(2, collection.getCollectionUId());
+
+        for(int i=1;i<=5;i++) {
+            if (collection.getSlotCard(i) != null) {
+                psMerge.setString(2 + i, collection.getSlotCard(i).getCardUId());
+            } else {
+                psMerge.setString(2 + i, null);
+            }
+        }
+
+        for(int i=0;i<UserCollection.SKILL_ID.length;i++) {
+            psMerge.setFloat(8 + i, collection.getSkill(UserCollection.SKILL_ID[i]));
+        }
+
+
+        psMerge.setTimestamp(33, new Timestamp(Calendar.getInstance().getTimeInMillis()));
+
+        psMerge.executeUpdate();
+    }
+
+
+    public UserCollection getUserCollection(String collectionUId) throws SQLException {
+        PreparedStatement ps = getConnection().prepareStatement("select * from card_collection where collection_uid=?");
+        ps.setString(1, collectionUId);
+        UserCollection collection = new UserCollection();
+        ResultSet rs = ps.executeQuery();
+
+        if(rs.next()) {
+            fillUserCollection(rs, collection);
+        }
+
+        collection.reCalculateSkills();
+
+        return collection;
+
+    }
 
 }

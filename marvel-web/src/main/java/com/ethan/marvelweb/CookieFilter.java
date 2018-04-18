@@ -91,6 +91,9 @@ public class CookieFilter implements Filter {
 
                 }
             }
+
+            // save Servlet's ServletPath to attribute for those jsp's language links use or jsp's getServletPath() will return xxxx.jsp
+            request.setAttribute("servlet.path", hreq.getServletPath());
         }
 
         chain.doFilter(request, response);

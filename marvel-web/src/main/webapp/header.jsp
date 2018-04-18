@@ -32,4 +32,4 @@ if (request.getParameter("lang") != null && request.getParameter("lang").length(
 </script>
 </div>
 <div align="center" style="color:red;font-size:24px;"><%= LanguageHelper.getInstance().getInterfaceName(lang, "header.clickad") %> :)</div>
-<p>Language: <a href="<%=request.getContextPath()+request.getServletPath() %>?lang=en">English</a> | <a href="<%=request.getContextPath()+request.getServletPath() %>?lang=zhtw">中文</a> | <a href="<%=request.getContextPath()+request.getServletPath() %>?lang=jp">日本語</a> | <a href="<%=request.getContextPath()+request.getServletPath() %>?lang=ko">한국어</a></p>
+<p>Language: <a href='<%=request.getContextPath()+request.getAttribute("servlet.path") %>?lang=en'>English</a> | <a href='<%=request.getContextPath()+request.getAttribute("servlet.path") %>?lang=zhtw'>中文</a> | <a href='<%=request.getContextPath()+request.getAttribute("servlet.path") %>?lang=jp'>日本語</a> | <a href='<%=request.getContextPath()+request.getAttribute("servlet.path") %>?lang=ko'>한국어</a></p>

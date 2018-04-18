@@ -2,6 +2,7 @@ package com.ethan.marvelweb;
 
 import com.ethan.marvel.usercards.UserCard;
 import com.ethan.marvel.usercards.UserCardDAO;
+import com.ethan.marvel.usercards.UserCollection;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,13 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Created by Ethan Yin-Hao Tsui on 2018/4/11.
+ * Created by Ethan Yin-Hao Tsui on 2018/4/16.
  */
-@WebServlet("/UserModifyCard")
-public class UserModifyCard extends HttpServlet {
-
-
-
+@WebServlet("/UserSelectCard")
+public class UserSelectCard extends HttpServlet {
     /**
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
@@ -26,11 +24,28 @@ public class UserModifyCard extends HttpServlet {
         UserCardDAO dao = null;
         try {
             dao = new UserCardDAO();
-            UserCard card = dao.getUserCard(request.getParameter("cuid"));
-            request.setAttribute("usercard", card);
 
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/userAddNewCard.jsp?cardid=" + card.getCardId()+"&lang="+request.getParameter("lang"));
-            dispatcher.forward(request,response);
+            UserCollection collection = dao.getUserCollection(request.getParameter("collectionuid"));
+
+            UserCard card = dao.getUserCard(request.getParameter("cuid"));
+
+            UserCard oldCard = collection.getSlotCard(Integer.parseInt(request.getParameter("slotid")));
+
+
+
+
+            collection.setSlotCard(Integer.parseInt(request.getParameter("slotid")), card);
+
+            collection.reCalculateSkills();
+
+            dao.upsertUserCollection(collection);
+
+            if(oldCard!=null) {
+                response.sendRedirect("./UserCardCollection?lang=" + request.getParameter("lang") + "&slotid=" + request.getParameter("slotid") + "&collectionuid=" + request.getParameter("collectionuid") + "&cuid=" + oldCard.getCardUId()+"#col-"+collection.getCollectionUId());
+            }
+            else {
+                response.sendRedirect("./UserCardCollection?lang=" + request.getParameter("lang")+"#col-"+collection.getCollectionUId());
+            }
 
         }
         catch (Exception err) {

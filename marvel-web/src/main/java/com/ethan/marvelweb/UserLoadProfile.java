@@ -13,16 +13,16 @@ import javax.servlet.http.HttpServletResponse;
 import com.ethan.marvel.utils.RandomIdGenerator;
 
 /**
- * Servlet implementation class LoadProfile
+ * Servlet implementation class UserLoadProfile
  */
-@WebServlet("/LoadProfile")
-public class LoadProfile extends HttpServlet {
+@WebServlet("/UserLoadProfile")
+public class UserLoadProfile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoadProfile() {
+    public UserLoadProfile() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,11 +33,6 @@ public class LoadProfile extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 	    if(request.getParameter("tokenid")!=null) {
-	        
-	        
-	        
-	        
-	        
 	        Cookie cookie = new Cookie("tknid", request.getParameter("tokenid"));
             cookie.setDomain(".ethanjojo.com");
             cookie.setMaxAge(60 * 60 * 24 * 365 * 10);
@@ -46,13 +41,10 @@ public class LoadProfile extends HttpServlet {
             response.addCookie(cookie);
             
             request.getSession().setAttribute("tknid", request.getParameter("tokenid"));
-            
-	        
+
 	    }
-	    
-	    
-	    
-	    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/LoadProfile.jsp");
+
+	    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/userLoadProfile.jsp");
         dispatcher.forward(request,response);
 	}
 

@@ -20,9 +20,10 @@ public class UserDeleteCard extends HttpServlet {
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        UserCardDAO dao = null;
 
         try {
-            UserCardDAO dao = new UserCardDAO();
+            dao = new UserCardDAO();
 
             dao.deleteUserCard(request.getParameter("cuid"));
 
@@ -33,6 +34,13 @@ public class UserDeleteCard extends HttpServlet {
             err.printStackTrace();
 
         }
-
+        finally {
+            try {
+                if(dao!=null) {
+                    dao.closeConnection();
+                }
+            }
+            catch (Exception ignore) { }
+        }
     }
 }
