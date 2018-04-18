@@ -105,8 +105,8 @@
 <div class="row justify-content-center">
   <div class="col-6 col-md-4">
   <%
-  out.write("<p>"+LocalizationHelper.getInstance().getText(lang, "ABILITY_26")+": "+FORMATTER.format(collection.getSkill("9_26"))+"%</p>");
-    out.write("<p>"+LocalizationHelper.getInstance().getText(lang, "ABILITY_25")+": "+FORMATTER.format(collection.getSkill("9_25"))+"%</p>");
+  out.write("<p>Total "+LocalizationHelper.getInstance().getText(lang, "ABILITY_26")+": "+FORMATTER.format(collection.getSkill("9_26"))+"%</p>");
+    out.write("<p>Total "+LocalizationHelper.getInstance().getText(lang, "ABILITY_25")+": "+FORMATTER.format(collection.getSkill("9_25"))+"%</p>");
   out.write("<hr/>");
   out.write("<p>");
   for(String skillId:ATTACK_SKILLS) {
@@ -120,8 +120,8 @@
   </div>
   <div class="col-6 col-md-4">
   <%
-    out.write("<p>"+LocalizationHelper.getInstance().getText(lang, "ABILITY_27")+": "+FORMATTER.format(collection.getSkill("10_27"))+"%</p>");
-    out.write("<p>"+LocalizationHelper.getInstance().getText(lang, "ABILITY_28")+": "+FORMATTER.format(collection.getSkill("10_28"))+"%</p>");
+    out.write("<p>Total "+LocalizationHelper.getInstance().getText(lang, "ABILITY_27")+": "+FORMATTER.format(collection.getSkill("10_27"))+"%</p>");
+    out.write("<p>Total "+LocalizationHelper.getInstance().getText(lang, "ABILITY_28")+": "+FORMATTER.format(collection.getSkill("10_28"))+"%</p>");
     out.write("<hr/>");
     out.write("<p>");
     for(String skillId:DEFENSE_SKILLS) {

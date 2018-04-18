@@ -15,7 +15,8 @@ if (request.getParameter("lang") != null && request.getParameter("lang").length(
 | <a href="./iso8List.jsp?lang=<%=lang %>"><%=LocalizationHelper.getInstance().getText(lang, "GUIDE_MENU_10") %></a>  
 | <a href="./cardList.jsp?lang=<%=lang %>"><%=LocalizationHelper.getInstance().getText(lang, "TITLE_CARD_EFFECT") %></a> 
 | <a href="./uniformList.jsp?lang=<%=lang %>"><%=LocalizationHelper.getInstance().getText(lang, "GUIDE_MENU_1002006") %></a> 
-| <a href="./quiz.jsp?lang=<%=lang %>"><%=LocalizationHelper.getInstance().getText(lang, "TAB_DAILY_QUIZ") %></a> 
+| <a href="./quiz.jsp?lang=<%=lang %>"><%=LocalizationHelper.getInstance().getText(lang, "TAB_DAILY_QUIZ") %></a>
+| <a href='./UserCardCollection?lang=<%=lang%>'><%=LanguageHelper.getInstance().getInterfaceName(lang, "user.card.collection.title") %></a> <span style="color:red">Beta</span>
 | <a href="http://goo.gl/forms/61WsFVF9XT">Feedback here!</a>
 
 </h3>
