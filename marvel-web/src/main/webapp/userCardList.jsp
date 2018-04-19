@@ -57,6 +57,7 @@
 <span><a href='./UserCardCollection?lang=<%=lang%>'><%=LanguageHelper.getInstance().getInterfaceName(lang, "user.card.collection.title") %></a></span> |
 <span><a href='./UserCardList?lang=<%=lang%>'><%=LanguageHelper.getInstance().getInterfaceName(lang, "user.card.list.title") %></a></span> |
 <span><a href='./userAddNewCard.jsp?lang=<%=lang%>'><%=LanguageHelper.getInstance().getInterfaceName(lang, "user.card.new.card") %></a></span> |
+<span><a href='./UserCollectionTop?lang=<%=lang%>'><%=LanguageHelper.getInstance().getInterfaceName(lang, "user.card.collection.top.title") %></a></span> |
 <!-- <span><a href='./UserLoadProfile?lang=<%=lang%>'><%=LanguageHelper.getInstance().getInterfaceName(lang, "user.card.load.profile") %></a></span> -->
 </h3>
 
@@ -65,6 +66,22 @@
     Token Id: <c:out value='${sessionScope.tknid }' />
   </div>
 </div>
+
+<div class="card">
+<div class="row">
+</div class="col">
+<%
+String link = "";
+if(request.getParameter("slotid")!=null && request.getParameter("collectionuid")!=null) {
+    link="&slotid="+request.getParameter("slotid")+"&collectionuid="+request.getParameter("collectionuid");
+}
+%>
+
+<a class="btn btn-primary" href="./userAddNewCard.jsp?lang=<%=lang %><%=link %>" role="button"><%=LanguageHelper.getInstance().getInterfaceName(lang, "user.card.new.card") %></a>
+</div>
+</div>
+</div>
+
 <div class="container-fluid mt-4">
     <div class="row justify-content-center">
 

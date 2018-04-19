@@ -11,6 +11,8 @@
 <%! static String[] ATTACK_SKILLS={"4", "6", "7", "9", "25", "26", "103"}; %>
 <%! static String[] DEFENSE_SKILLS={"8", "10", "11", "27", "28", "29", "32", "33", "34", "35", "36"}; %>
 <%! static String[] ABNORMAL_SKILLS={"5", "19", "20"}; %>
+<%! static String[] QUERY_SKILLS={"sk_9_26", "sk_9_25", "sk_11", "sk_103", "sk_10_27", "sk_10_28"}; %>
+<%! static String[] QUERY_ABI_SKILLS={"26", "25", "11", "103", "27", "28"}; %>
 <%! static DecimalFormat FORMATTER = new DecimalFormat("##.#"); %>
     <%
     String lang="en";
@@ -22,7 +24,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title><%=LanguageHelper.getInstance().getInterfaceName(lang, "user.card.collection.title") %></title>
+<title><%=LanguageHelper.getInstance().getInterfaceName(lang, "user.card.collection.top.title") %></title>
 <jsp:include page="./head_include.jsp" />
 
 <style>
@@ -47,7 +49,7 @@
 <body>
 <div class="container">
 <jsp:include page="./header.jsp" />
-<h1><%=LanguageHelper.getInstance().getInterfaceName(lang, "user.card.collection.title") %></h1>
+<h1><%=LanguageHelper.getInstance().getInterfaceName(lang, "user.card.collection.top.title") %></h1>
 
 <h3>
 <span><a href='./UserCardCollection?lang=<%=lang%>'><%=LanguageHelper.getInstance().getInterfaceName(lang, "user.card.collection.title") %></a></span> |
@@ -57,10 +59,36 @@
 <!-- <span><a href='./UserLoadProfile?lang=<%=lang%>'><%=LanguageHelper.getInstance().getInterfaceName(lang, "user.card.load.profile") %></a></span> -->
 </h3>
 
-<div class="card">
-  <div class="card-body">
-    Token Id: <c:out value='${sessionScope.tknid }' />
-  </div>
+
+<div class="row">
+<div class="col">
+<form method="GET" action="./UserCollectionTop">
+  <input type="hidden" name="lang" value="<%=lang %>" />
+  <select name="sortby" id="sortby" class="custom-select">
+  <%
+    for(int i=0,size=QUERY_SKILLS.length;i<size;i++) {
+  %>
+  <option value="<%=QUERY_SKILLS[i] %>"
+  <%
+  if(request.getParameter("sortby")!=null && QUERY_SKILLS[i].equals(request.getParameter("sortby"))) {
+  out.write("selected");
+  }
+  %>
+  ><%=LocalizationHelper.getInstance().getText(lang, "ABILITY_"+QUERY_ABI_SKILLS[i]) %></option>
+
+  <%
+    }
+  %>
+  </select>
+
+<script>
+  $('#sortby').on('change', function() {
+      location.href='./UserCollectionTop?lang=<%=lang%>&sortby=' + $(this).val();
+  });
+</script>
+
+</form>
+</div>
 </div>
 
 
@@ -76,19 +104,6 @@
 
 <div class="row">
 <div class="col">
-<a name="col-<%=collection.getCollectionUId() %>"/>
-
-<%
-  if(request.getParameter("error")!=null && collection.getCollectionUId().equals(request.getParameter("collectionuid"))) {
-%>
-<div class="alert alert-warning" role="alert">
-  <%=LanguageHelper.getInstance().getInterfaceName(lang, "user.card.error."+request.getParameter("error")) %>
-</div>
-
-
-<%
-  }
-%>
 </div>
 </div>
 
@@ -115,18 +130,6 @@
       <%
        }
       %>
-      <div class="card-body">
-      <a class="btn btn-primary" href="./UserCardList?slotid=<%=i %>&lang=<%=lang %>&collectionuid=<%=collection.getCollectionUId() %>" role="button"><%=LanguageHelper.getInstance().getInterfaceName(lang, "user.card.list.select") %></a>
-
-      <%
-      if(request.getParameter("slotid") !=null && collection.getCollectionUId().equals(request.getParameter("collectionuid")) && Integer.parseInt(request.getParameter("slotid"))==i ) {
-      %>
-      <a class="btn btn-outline-secondary" href="./UserSelectCard?slotid=<%=i %>&lang=<%=lang %>&collectionuid=<%=collection.getCollectionUId() %>&cuid=<%=request.getParameter("cuid") %>" role="button"><%=LanguageHelper.getInstance().getInterfaceName(lang, "user.card.list.undo") %></a>
-
-      <%
-      }
-      %>
-      </div>
   </div>
   </div>
 
@@ -184,21 +187,6 @@
 
   } // for collection
 %>
-
-
-<div class="container">
-<div class="row justify-content-center">
-<div class="col">
-<div class="card">
-<div class="card-body">
-<p> </p>
-<p><a class="btn btn-primary" href="./UserAddNewCardCollection?lang=<%=lang %>" role="button"><%=LanguageHelper.getInstance().getInterfaceName(lang, "user.card.collection.new") %></a></p>
-<p> </p>
-</div>
-</div>
-</div>
-</div>
-</div>
 
 
 <jsp:include page="./footer_include.jsp" />

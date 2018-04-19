@@ -3,12 +3,7 @@
  */
 package com.ethan.marvel.usercards;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.util.*;
 
 import com.ethan.marvel.utils.RandomIdGenerator;
@@ -306,6 +301,55 @@ public class UserCardDAO {
 
         return collection;
 
+    }
+
+    public List<UserCollection> getTop(int topN, String sortBy, float upperBound) throws SQLException {
+        List<UserCollection> collections = new ArrayList<UserCollection>();
+
+        Statement st = getConnection().createStatement();
+        ResultSet rs = st.executeQuery("select * from card_collection where slot1_id is not null and slot2_id is not null and slot3_id is not null and slot4_id is not null and slot5_id is not null and "+sortBy +" <=" + upperBound+" order by "+sortBy+" desc limit "+topN);
+
+        while(rs.next()) {
+            UserCollection collection = new UserCollection();
+            fillUserCollection(rs, collection);
+            collections.add(collection);
+
+        }
+        return collections;
+    }
+
+    public void removeRepeatCard() throws SQLException {
+        Statement st = getConnection().createStatement();
+        ResultSet rs = st.executeQuery("select * from card_collection");
+
+        while(rs.next()) {
+            UserCollection collection = new UserCollection();
+            fillUserCollection(rs, collection);
+
+            boolean modified=false;
+            for(int i=1;i<=4;i++) {
+
+                if(collection.getSlotCard(i)==null) {
+                    continue;
+                }
+
+                for(int j=i+1;j<=5;j++) {
+                    if(collection.getSlotCard(j)==null) {
+                        continue;
+                    }
+                    if(collection.getSlotCard(i).getCardId()==collection.getSlotCard(j).getCardId()) {
+                        collection.setSlotCard(j, null);
+                        modified=true;
+                    }
+                }
+
+
+            }
+            if(modified) {
+                this.upsertUserCollection(collection);
+            }
+
+        }
     }
 
 }

@@ -1,8 +1,6 @@
 package com.ethan.marvel.usercards;
 
-import java.util.Date;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * Created by Ethan Yin-Hao Tsui on 2018/4/11.
@@ -20,6 +18,8 @@ public class UserCollection {
     protected UserCard[] slots = new UserCard[5];
 
     protected Map<String, Float> skills = new TreeMap<String, Float>();
+
+    protected List<String> triggerBasedSkills = new ArrayList<String>();
 
     protected Date insertSt;
 
@@ -88,9 +88,19 @@ public class UserCollection {
     }
 
 
+    public List<String> getTriggerBasedSkills() {
+        return triggerBasedSkills;
+    }
+
+    public void setTriggerBasedSkills(List<String> triggerBasedSkills) {
+        this.triggerBasedSkills = triggerBasedSkills;
+    }
+
+
 
     public void reCalculateSkills() {
         skills.clear();
+        triggerBasedSkills.clear();
 
         for(UserCard usercard:slots) {
             if(usercard==null) {
@@ -100,6 +110,7 @@ public class UserCollection {
             for(int i=1;i<=6;i++) {
                 String skillId = usercard.getOptions(i);
                 if(skillId.startsWith("0:")) {
+                    triggerBasedSkills.add(skillId);
                     continue;
                 }
                 float value=0.0f;

@@ -29,22 +29,38 @@ public class UserSelectCard extends HttpServlet {
 
             UserCard card = dao.getUserCard(request.getParameter("cuid"));
 
-            UserCard oldCard = collection.getSlotCard(Integer.parseInt(request.getParameter("slotid")));
+            boolean found = false;
 
+            for(int i=1;i<=5;i++) {
+                UserCard uCard = collection.getSlotCard(i);
+                if(uCard==null) {
+                    continue;
+                }
+                else if(uCard.getCardId()==card.getCardId() && i!=Integer.parseInt(request.getParameter("slotid"))) {
+                    found=true;
+                    break;
+                }
+            }
 
+            if(found) {
 
+                response.sendRedirect("./UserCardCollection?lang=" + request.getParameter("lang")+"&error=conflict&collectionuid=" + request.getParameter("collectionuid")+"#col-"+collection.getCollectionUId());
 
-            collection.setSlotCard(Integer.parseInt(request.getParameter("slotid")), card);
-
-            collection.reCalculateSkills();
-
-            dao.upsertUserCollection(collection);
-
-            if(oldCard!=null) {
-                response.sendRedirect("./UserCardCollection?lang=" + request.getParameter("lang") + "&slotid=" + request.getParameter("slotid") + "&collectionuid=" + request.getParameter("collectionuid") + "&cuid=" + oldCard.getCardUId()+"#col-"+collection.getCollectionUId());
             }
             else {
-                response.sendRedirect("./UserCardCollection?lang=" + request.getParameter("lang")+"#col-"+collection.getCollectionUId());
+                UserCard oldCard = collection.getSlotCard(Integer.parseInt(request.getParameter("slotid")));
+
+                collection.setSlotCard(Integer.parseInt(request.getParameter("slotid")), card);
+
+                collection.reCalculateSkills();
+
+                dao.upsertUserCollection(collection);
+
+                if (oldCard != null) {
+                    response.sendRedirect("./UserCardCollection?lang=" + request.getParameter("lang") + "&slotid=" + request.getParameter("slotid") + "&collectionuid=" + request.getParameter("collectionuid") + "&cuid=" + oldCard.getCardUId() + "#col-" + collection.getCollectionUId());
+                } else {
+                    response.sendRedirect("./UserCardCollection?lang=" + request.getParameter("lang") + "#col-" + collection.getCollectionUId());
+                }
             }
 
         }

@@ -34,7 +34,7 @@ public class UserCardCollection extends HttpServlet {
             List<UserCollection> collections = dao.getAllUserCollection((String)request.getSession().getAttribute("tknid"));
             request.setAttribute("collections", collections);
 
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/userCardCollection.jsp?lang="+request.getParameter("lang"));
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/userCardCollection.jsp?lang="+(request.getParameter("lang")!=null?request.getParameter("lang"):"en"));
             dispatcher.forward(request,response);
 
         } catch (SQLException e) {

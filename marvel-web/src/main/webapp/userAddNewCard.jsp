@@ -13,6 +13,13 @@
     if(request.getParameter("lang")!=null && request.getParameter("lang").length()>0) {
         lang=request.getParameter("lang").trim();
     }
+
+   int cid = 1;
+   if(request.getParameter("cardid")!=null) {
+      try {
+         cid = Integer.parseInt(request.getParameter("cardid"));
+      } catch(Exception ignore) { }
+   }
     %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -49,6 +56,7 @@ input[type=radio]:checked + label {
 <span><a href='./UserCardCollection?lang=<%=lang%>'><%=LanguageHelper.getInstance().getInterfaceName(lang, "user.card.collection.title") %></a></span> |
 <span><a href='./UserCardList?lang=<%=lang%>'><%=LanguageHelper.getInstance().getInterfaceName(lang, "user.card.list.title") %></a></span> |
 <span><a href='./userAddNewCard.jsp?lang=<%=lang%>'><%=LanguageHelper.getInstance().getInterfaceName(lang, "user.card.new.card") %></a></span> |
+<span><a href='./UserCollectionTop?lang=<%=lang%>'><%=LanguageHelper.getInstance().getInterfaceName(lang, "user.card.collection.top.title") %></a></span> |
 <!-- <span><a href='./UserLoadProfile?lang=<%=lang%>'><%=LanguageHelper.getInstance().getInterfaceName(lang, "user.card.load.profile") %></a></span> -->
 </h3>
 
@@ -61,6 +69,7 @@ input[type=radio]:checked + label {
 <form action="./UserAddNewCard">
 
 <input type='hidden' name='lang' value='<%=lang %>' />
+<input type='hidden' name='cardid' value='<%=cid %>' />
 <%
   if(request.getParameter("slotid")!=null && request.getParameter("collectionuid")!=null) {
 %>
@@ -69,54 +78,42 @@ input[type=radio]:checked + label {
 <%
 }
 %>
-
-
 <div class="row justify-content-start">
 <div class="col">
-<select class="form-control" name="cardid" id="cardid">
-   <%
-   int cid = 1;
-   if(request.getParameter("cardid")!=null) {
-      try {
-         cid = Integer.parseInt(request.getParameter("cardid"));
-      } catch(Exception ignore) { }
-   }
 
-    for (Card c : CardDB.getInstance().getCards().values()) {
-%>
-   <option value='<%=c.getCardId() %>'
-<%
-      if(c.getCardId()==cid) {
-        out.write("selected");
-      }
-%>
-   ><%= LocalizationHelper.getInstance().getText(lang, "ITEM_"+c.getCardItemId()) %> </option>
-
-<%
-  }
-%>
-
-</select>
-</div>
-</div>
 <%
   String link="";
   if(request.getParameter("slotid")!=null && request.getParameter("collectionuid")!=null) {
      link="&slotid="+request.getParameter("slotid")+"&collectionuid="+request.getParameter("collectionuid");
   }
 %>
-<script>
-  $('#cardid').on('change', function() {
-      location.href='./userAddNewCard.jsp?cardid=' + $(this).val() +'&lang=<%=lang %><%=link %>';
-  });
 
-</script>
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <%=LanguageHelper.getInstance().getInterfaceName(lang, "user.card.new.card.select") %>
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+<%
+    for (Card c : CardDB.getInstance().getCards().values()) {
+%>
+   <a class="dropdown-item" href="./userAddNewCard.jsp?lang=<%=lang %>&cardid=<%=c.getCardId() %><%=link %>"><img src="img/ncc_<%=c.getCardId() %>.png" style="width:64px"/><%= LocalizationHelper.getInstance().getText(lang, "ITEM_"+c.getCardItemId()) %></a>
+
+<%
+    }
+%>
+
+  </div>
+</div>
+
+</div>
+</div>
 
 
   <div class="card" style="width: 100%;">
 <img class="card-img-top" src="img/ncc_<%=cid %>.png" style="width: 200px" />
 <div class="card-body">
 <div class="row">
+
 <%
    UserCard usercard = null;
    if(request.getAttribute("usercard")!=null) {
@@ -126,6 +123,7 @@ input[type=radio]:checked + label {
    if(usercard!=null) {
 %>
   <input type='hidden' name='carduid' value='<%=usercard.getCardUId() %>' />
+
 <%
 
    }
