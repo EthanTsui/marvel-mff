@@ -11,8 +11,8 @@
 <%! static String[] ATTACK_SKILLS={"4", "6", "7", "9", "25", "26", "103"}; %>
 <%! static String[] DEFENSE_SKILLS={"8", "10", "11", "27", "28", "29", "32", "33", "34", "35", "36"}; %>
 <%! static String[] ABNORMAL_SKILLS={"5", "19", "20"}; %>
-<%! static String[] QUERY_SKILLS={"sk_9_26", "sk_9_25", "sk_11", "sk_103", "sk_10_27", "sk_10_28"}; %>
-<%! static String[] QUERY_ABI_SKILLS={"26", "25", "11", "103", "27", "28"}; %>
+<%! static String[] QUERY_SKILLS={"sk_9_26", "sk_9_25", "sk_11", "sk_103", "sk_10_27", "sk_10_28", "sk_19"}; %>
+<%! static String[] QUERY_ABI_SKILLS={"26", "25", "11", "103", "27", "28", "19"}; %>
 <%! static DecimalFormat FORMATTER = new DecimalFormat("##.#"); %>
     <%
     String lang="en";
