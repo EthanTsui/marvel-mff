@@ -159,12 +159,7 @@ if(request.getParameter("slotid")!=null && request.getParameter("collectionuid")
 <div class="card">
 <div class="row">
 </div class="col">
-<%
-String link = "";
-if(request.getParameter("slotid")!=null && request.getParameter("collectionuid")!=null) {
-    link="&slotid="+request.getParameter("slotid")+"&collectionuid="+request.getParameter("collectionuid");
-}
-%>
+
 
 <a class="btn btn-primary" href="./userAddNewCard.jsp?lang=<%=lang %><%=link %>" role="button"><%=LanguageHelper.getInstance().getInterfaceName(lang, "user.card.new.card") %></a>
 </div>
