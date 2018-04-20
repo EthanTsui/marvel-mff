@@ -1,9 +1,6 @@
 package com.ethan.marvelweb;
 
-import com.ethan.marvel.usercards.Combination2;
-import com.ethan.marvel.usercards.UserCard;
-import com.ethan.marvel.usercards.UserCardDAO;
-import com.ethan.marvel.usercards.UserCardOptimizer;
+import com.ethan.marvel.usercards.*;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -41,6 +38,12 @@ public class UserCardSuggest extends HttpServlet {
 
             if(request.getParameter("sortby")!=null) {
                 optimizer.setSkillId(request.getParameter("sortby"));
+            }
+
+            for(int i=1;i<=2;i++) {
+                if (request.getParameter("opt"+i) != null && !request.getParameter("opt"+i).equals("none")) {
+                    optimizer.addFilter(new SkillValueBetweenFilter(request.getParameter("opt"+i), Float.parseFloat(request.getParameter("lower"+i)), Float.parseFloat(request.getParameter("upper"+i))));
+                }
             }
 
             optimizer.run();

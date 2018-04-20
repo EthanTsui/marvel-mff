@@ -56,8 +56,10 @@
 
 <div class="row">
 <div class="col">
-<form method="GET" action="./UserCollectionTop">
+<form method="GET" action="./UserCardSuggest">
   <input type="hidden" name="lang" value="<%=lang %>" />
+  <div class="form-group">
+  <label for="sortby">Sort by</label>
   <select name="sortby" id="sortby" class="custom-select">
   <%
     for(int i=0,size=QUERY_SKILLS.length;i<size;i++) {
@@ -74,12 +76,58 @@
     }
   %>
   </select>
+  </div>
 
-<script>
-  $('#sortby').on('change', function() {
-      location.href='./UserCardSuggest?lang=<%=lang%>&sortby=' + $(this).val();
-  });
-</script>
+  <div class="form-group">
+  <select name="opt1" id="opt1">
+    <option value="none">Select</option>
+    <%
+        for(int i=0,size=QUERY_SKILLS.length;i<size;i++) {
+      %>
+      <option value="<%=QUERY_SKILLS[i] %>"
+      <%
+      if(request.getParameter("opt1")!=null && QUERY_SKILLS[i].equals(request.getParameter("opt1"))) {
+      out.write("selected");
+      }
+      %>
+      ><%=LocalizationHelper.getInstance().getText(lang, "ABILITY_"+QUERY_ABI_SKILLS[i]) %></option>
+
+      <%
+        }
+      %>
+
+  </select>
+  <input type="text" name="lower1" value="<%=request.getParameter("lower1")==null?"0":request.getParameter("lower1") %>" /> ~ <input type="text" name="upper1" value="<%=request.getParameter("upper1")==null?"999":request.getParameter("upper1") %>" />
+
+  </div>
+
+  <div class="form-group">
+    <select name="opt2" id="opt2">
+      <option value="none">Select</option>
+      <%
+          for(int i=0,size=QUERY_SKILLS.length;i<size;i++) {
+        %>
+        <option value="<%=QUERY_SKILLS[i] %>"
+        <%
+        if(request.getParameter("opt2")!=null && QUERY_SKILLS[i].equals(request.getParameter("opt2"))) {
+        out.write("selected");
+        }
+        %>
+        ><%=LocalizationHelper.getInstance().getText(lang, "ABILITY_"+QUERY_ABI_SKILLS[i]) %></option>
+
+        <%
+          }
+        %>
+
+    </select>
+    <input type="text" name="lower2" value="<%=request.getParameter("lower2")==null?"0":request.getParameter("lower2") %>" /> ~ <input type="text" name="upper2" value="<%=request.getParameter("upper2")==null?"999":request.getParameter("upper2") %>" />
+
+
+
+    </div>
+
+
+<button type="submit" class="btn btn-primary">Submit</button>
 
 </form>
 </div>

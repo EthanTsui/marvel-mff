@@ -55,7 +55,7 @@
 
 <div class="row">
 <div class="col">
-<form method="GET" action="./UserCardSuggest">
+<form method="GET" action="./UserCollectionTop">
   <input type="hidden" name="lang" value="<%=lang %>" />
   <select name="sortby" id="sortby" class="custom-select">
   <%

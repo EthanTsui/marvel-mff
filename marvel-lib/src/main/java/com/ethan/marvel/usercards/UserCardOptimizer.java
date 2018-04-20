@@ -15,6 +15,8 @@ public class UserCardOptimizer {
 
     private String skillId = "9_26";
 
+    List<IFilter> filters = new ArrayList<IFilter>();
+
     public String getSkillId() {
         return skillId;
     }
@@ -23,6 +25,10 @@ public class UserCardOptimizer {
         this.skillId = skillId;
     }
 
+    public UserCardOptimizer addFilter(IFilter filter) {
+        filters.add(filter);
+        return this;
+    }
 
     public List<UserCollection> getCollections() {
         return collections;
@@ -53,8 +59,24 @@ public class UserCardOptimizer {
 
         List<UserCollection> results = new ArrayList<UserCollection>();
 
-        for(int i=0;i<50 && i<collections.size();i++) {
-            results.add(collections.get(i));
+        int counter=0;
+        int i=0;
+        while(counter<50 && i<collections.size()) {
+            UserCollection collection = collections.get(i);
+            i++;
+
+            boolean accepted = true;
+            for(IFilter filter:filters) {
+                if(!filter.accept(collection)) {
+                    accepted=false;
+                    break;
+                }
+            }
+
+            if(accepted) {
+                results.add(collection);
+                counter++;
+            }
         }
 
         collections=results;
