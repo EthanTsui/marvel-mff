@@ -26,13 +26,7 @@
 <jsp:include page="./header.jsp" />
 <h1><%=LanguageHelper.getInstance().getInterfaceName(lang, "user.card.load.profile") %></h1>
 
-<h3>
-<span><a href='./UserCardCollection?lang=<%=lang%>'><%=LanguageHelper.getInstance().getInterfaceName(lang, "user.card.collection.title") %></a></span> |
-<span><a href='./UserCardList?lang=<%=lang%>'><%=LanguageHelper.getInstance().getInterfaceName(lang, "user.card.list.title") %></a></span> |
-<span><a href='./userAddNewCard.jsp?lang=<%=lang%>'><%=LanguageHelper.getInstance().getInterfaceName(lang, "user.card.new.card") %></a></span> |
-<span><a href='./UserCollectionTop?lang=<%=lang%>'><%=LanguageHelper.getInstance().getInterfaceName(lang, "user.card.collection.top.title") %></a></span> |
-<!-- <span><a href='./UserLoadProfile?lang=<%=lang%>'><%=LanguageHelper.getInstance().getInterfaceName(lang, "user.card.load.profile") %></a></span> -->
-</h3>
+<jsp:include page="./userCard_include.jsp" />
 
 <div class="panel-body">
 <div class="panel panel-default">

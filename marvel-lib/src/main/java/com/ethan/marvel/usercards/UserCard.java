@@ -182,7 +182,23 @@ public class UserCard {
             return OPTION_RATIO[optionNo-1];
         }
     }
-    
+
+    public float getTotalRatioBySkillId(String skillId) {
+        float sum=0.0f;
+        for(int i=1;i<=6;i++) {
+            String id=options[i-1];
+            if(id==null) {
+                continue;
+            }
+            if(id.equals(skillId)) {
+                sum+=getOptionsRatio(i);
+            }
+
+
+        }
+        return sum;
+    }
+
     /**
      * @param insertSt the insertSt to set
      */
