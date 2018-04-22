@@ -40,7 +40,7 @@ public class UserCardSuggest extends HttpServlet {
                 optimizer.setSkillId(request.getParameter("sortby"));
             }
 
-            for(int i=1;i<=2;i++) {
+            for(int i=1;i<=4;i++) {
                 if (request.getParameter("opt"+i) != null && !request.getParameter("opt"+i).equals("none")) {
                     optimizer.addFilter(new SkillValueBetweenFilter(request.getParameter("opt"+i), Float.parseFloat(request.getParameter("lower"+i)), Float.parseFloat(request.getParameter("upper"+i))));
                 }

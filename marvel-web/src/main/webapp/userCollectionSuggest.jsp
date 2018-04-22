@@ -126,7 +126,55 @@
 
     </div>
 
+   <div class="form-group">
+    <select name="opt3" id="opt3">
+      <option value="none">Select</option>
+      <%
+          for(int i=0,size=QUERY_SKILLS.length;i<size;i++) {
+        %>
+        <option value="<%=QUERY_SKILLS[i] %>"
+        <%
+        if(request.getParameter("opt3")!=null && QUERY_SKILLS[i].equals(request.getParameter("opt3"))) {
+        out.write("selected");
+        }
+        %>
+        ><%=LocalizationHelper.getInstance().getText(lang, "ABILITY_"+QUERY_ABI_SKILLS[i]) %></option>
 
+        <%
+          }
+        %>
+
+    </select>
+    <input type="text" name="lower3" value="<%=request.getParameter("lower3")==null?"0":request.getParameter("lower3") %>" /> ~ <input type="text" name="upper3" value="<%=request.getParameter("upper3")==null?"999":request.getParameter("upper3") %>" />
+
+
+
+    </div>
+
+   <div class="form-group">
+    <select name="opt4" id="opt4">
+      <option value="none">Select</option>
+      <%
+          for(int i=0,size=QUERY_SKILLS.length;i<size;i++) {
+        %>
+        <option value="<%=QUERY_SKILLS[i] %>"
+        <%
+        if(request.getParameter("opt4")!=null && QUERY_SKILLS[i].equals(request.getParameter("opt4"))) {
+        out.write("selected");
+        }
+        %>
+        ><%=LocalizationHelper.getInstance().getText(lang, "ABILITY_"+QUERY_ABI_SKILLS[i]) %></option>
+
+        <%
+          }
+        %>
+
+    </select>
+    <input type="text" name="lower4" value="<%=request.getParameter("lower4")==null?"0":request.getParameter("lower4") %>" /> ~ <input type="text" name="upper4" value="<%=request.getParameter("upper4")==null?"999":request.getParameter("upper4") %>" />
+
+
+
+    </div>
 <button type="submit" class="btn btn-primary">Submit</button>
 
 </form>
