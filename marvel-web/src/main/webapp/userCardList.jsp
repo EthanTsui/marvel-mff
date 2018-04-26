@@ -55,6 +55,22 @@
 
 <jsp:include page="./userCard_include.jsp" />
 
+<%
+  if(request.getParameter("error")!=null) {
+%>
+<div class="card">
+  <div class="card-body">
+    <div class="alert alert-danger" role="alert">
+    <p> </p>
+     <p> <%=LanguageHelper.getInstance().getInterfaceName(lang, "user.card.error."+request.getParameter("error")) %> </p>
+      <p></p>
+    </div>
+  </div>
+</div>
+<%
+ }
+%>
+
 <div class="card">
   <div class="card-body">
     Token Id: <c:out value='${sessionScope.tknid }' />

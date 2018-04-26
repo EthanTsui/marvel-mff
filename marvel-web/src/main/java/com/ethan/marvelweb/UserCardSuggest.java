@@ -34,25 +34,32 @@ public class UserCardSuggest extends HttpServlet {
 
             List<UserCard> cards = dao.getUserCards(tokenId);
 
-            UserCardOptimizer optimizer = new UserCardOptimizer(cards);
-
-            if(request.getParameter("sortby")!=null) {
-                optimizer.setSkillId(request.getParameter("sortby"));
+            if(cards.size()<=5) {
+                response.sendRedirect("./UserCardList?lang=" + request.getParameter("lang")+"&error=toolesscards");
             }
+            else if(cards.size()>40) {
+                response.sendRedirect("./UserCardList?lang=" + request.getParameter("lang")+"&error=toomanycards");
+            }
+            else {
+                UserCardOptimizer optimizer = new UserCardOptimizer(cards);
 
-            for(int i=1;i<=4;i++) {
-                if (request.getParameter("opt"+i) != null && !request.getParameter("opt"+i).equals("none")) {
-                    optimizer.addFilter(new SkillValueBetweenFilter(request.getParameter("opt"+i), Float.parseFloat(request.getParameter("lower"+i)), Float.parseFloat(request.getParameter("upper"+i))));
+                if (request.getParameter("sortby") != null) {
+                    optimizer.setSkillId(request.getParameter("sortby"));
                 }
+
+                for (int i = 1; i <= 4; i++) {
+                    if (request.getParameter("opt" + i) != null && !request.getParameter("opt" + i).equals("none")) {
+                        optimizer.addFilter(new SkillValueBetweenFilter(request.getParameter("opt" + i), Float.parseFloat(request.getParameter("lower" + i)), Float.parseFloat(request.getParameter("upper" + i))));
+                    }
+                }
+
+                optimizer.run();
+
+                request.setAttribute("collections", optimizer.getCollections());
+
+                RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/userCollectionSuggest.jsp");
+                dispatcher.forward(request, response);
             }
-
-            optimizer.run();
-
-            request.setAttribute("collections", optimizer.getCollections());
-
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/userCollectionSuggest.jsp");
-            dispatcher.forward(request,response);
-
             dao.closeConnection();
         } catch (SQLException e) {
             // TODO Auto-generated catch block
