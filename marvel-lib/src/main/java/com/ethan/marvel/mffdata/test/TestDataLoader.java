@@ -126,10 +126,10 @@ public class TestDataLoader {
     
     public void checkNewFile() {
         //"/data/MFF_Dump/MFF_Dump_Data_V3.2.0_20170801/text_decode_utf8/"
-        File newVersion = new File("/data/MFF_Dump/MFF_Dump_Data_V3.9.0/text_decode_utf8/");
+        File newVersion = new File("/data/MFF_Dump/MFF_Dump_Data_V4.0.1/text_decode_utf8/");
         String[] nvFiles = newVersion.list();
         
-        File oldVersion = new File("/data/MFF_Dump/MFF_Dump_Data_V3.8.0/text_decode_utf8/");
+        File oldVersion = new File("/data/MFF_Dump/MFF_Dump_Data_V3.9.0/text_decode_utf8/");
         String[] ovFiles = oldVersion.list();
         
         
@@ -368,13 +368,13 @@ public class TestDataLoader {
         DataLoader tw = new DataLoader();
         tw.loadData(
                 new File(
-                        "/data/MFF_Dump/MFF_Dump_Data_V3.9.0/localization_zh_text_decode_utf8/Localization_zh.csv.txt.decode.txt"),
+                        "/data/MFF_Dump/MFF_Dump_Data_V4.0.1/localization_zh_text_decode_utf8/Localization_zh.csv.txt.decode.txt"),
                 "UTF-8", "\t", 0);
 
         DataLoader twold = new DataLoader();
         twold.loadData(
                 new File(
-                        "/data/MFF_Dump/MFF_Dump_Data_V3.8.0/localization_zh_text_decode_utf8/Localization_zh.csv.txt.decode.txt"),
+                        "/data/MFF_Dump/MFF_Dump_Data_V3.9.0/localization_zh_text_decode_utf8/Localization_zh.csv.txt.decode.txt"),
                 "UTF-8", "\t", 0);
 
         while (tw.next()) {

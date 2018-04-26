@@ -30,7 +30,7 @@
   } 
 
   .allhead {
-  background: url("img/allhead64.3.9.0.png") no-repeat;
+  background: url("img/allhead64.4.0.1.png") no-repeat;
   width:64px;
   height:64px;
   margin: 2px;

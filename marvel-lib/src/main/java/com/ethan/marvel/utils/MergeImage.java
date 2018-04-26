@@ -35,8 +35,8 @@ public class MergeImage {
     public static void main(String[] args) {
         MergeImage m = new MergeImage();
 //        m.run();
-//        m.generateAllFromMFFDATA();
-        m.runCard();
+        m.generateAllFromMFFDATA();
+//        m.runCard();
 
         
 //        m.runmushroom();
@@ -179,7 +179,7 @@ public class MergeImage {
     
     public void runCard() {
         try {
-            int lastCardIndex = 79; // modify here!!!
+            int lastCardIndex = 81; // modify here!!!
             
 
           
