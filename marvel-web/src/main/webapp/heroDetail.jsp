@@ -69,6 +69,92 @@
 
 	</div>
 
+<div class="container">
+  <%
+     List<Uniform> uniforms = UniformDB.getInstance().getUniformsByHero(heroid);
+
+     for(Uniform uni: uniforms) {
+
+  %>
+<div class="row border-top border-secondary">
+<div class="col">
+  <div class="card bg-info">
+  <div class="allhead" style=" background-position: -<%= ((uni.getImgidx()-1)%10)*64 %>px -<%= ((int)Math.floor((uni.getImgidx()-1)/10))*64 %>px;"></div>
+  <div class="card-body"><%=LocalizationHelper.getInstance().getText(lang, "ITEM_"+uni.getUniformId()) %></div>
+  </div>
+</div>
+
+       <%
+          for(int i=1;i<=5;i++) {
+              Uniform runi = uni.getRequiredUniforms().get(i);
+
+       %>
+       <div class="col">
+        <div class="card">
+         <div class="allhead" style=" background-position: -<%= ((runi.getImgidx()-1)%10)*64 %>px -<%= ((int)Math.floor((runi.getImgidx()-1)/10))*64 %>px;"></div>
+         <div class="card-body"><%=LocalizationHelper.getInstance().getText(lang, "ITEM_"+runi.getUniformId()) %></div>
+        </div>
+       </div>
+
+  <%
+
+          }
+  %>
+</div>
+  <%
+
+    }
+  %>
+<div>
+
+
+<p> </p>
+</div>
+<div>
+<p> </p>
+</div>
+
+
+
+  <%
+     List<Uniform> uniformsBelong = UniformDB.getInstance().getUniformsByHeroBelong(heroid);
+
+     for(Uniform uni: uniformsBelong) {
+
+  %>
+<div class="row border-top border-secondary">
+<div class="col">
+  <div class="card bg-info">
+  <div class="allhead" style=" background-position: -<%= ((uni.getImgidx()-1)%10)*64 %>px -<%= ((int)Math.floor((uni.getImgidx()-1)/10))*64 %>px;"></div>
+  <div class="card-body"><%=LocalizationHelper.getInstance().getText(lang, "ITEM_"+uni.getUniformId()) %></div>
+  </div>
+</div>
+
+       <%
+          for(int i=1;i<=5;i++) {
+              Uniform runi = uni.getRequiredUniforms().get(i);
+
+       %>
+       <div class="col">
+        <div class="card <%=(runi.getHero().getHeroId()==heroid?"border border-danger":"") %>">
+         <div class="allhead" style=" background-position: -<%= ((runi.getImgidx()-1)%10)*64 %>px -<%= ((int)Math.floor((runi.getImgidx()-1)/10))*64 %>px;"></div>
+         <div class="card-body"><%=LocalizationHelper.getInstance().getText(lang, "ITEM_"+runi.getUniformId()) %></div>
+        </div>
+       </div>
+
+  <%
+
+          }
+  %>
+</div>
+  <%
+
+    }
+  %>
+
+</div>
+
+
 	<div><a name="teamup"></a> </div>
 
 	<div><%=LanguageHelper.getInstance().getInterfaceName(lang, "hd.teamup.sort_by")%>: 

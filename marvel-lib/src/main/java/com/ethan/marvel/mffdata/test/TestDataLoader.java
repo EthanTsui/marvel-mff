@@ -54,32 +54,26 @@ public class TestDataLoader {
      */
     public static void main(String[] args) {
         TestDataLoader tdl = new TestDataLoader();
-       
-        //r99(1,1);
-        
-//        for (int i = 1, j = 0; i <= 9 && j <= 9; System.out.println((i = (j == 9) ? i + 1 : i) + " * "
-//                + (j = (j == 9 ? 1 : j + 1)) + " = " + (i * j))) { }
 
-        // double a = 1d;
-        // double b = 4d;
-        // double c = 0.25d;
-        // double d = a/b;
-        // System.out.println("d: "+d);
-        // System.out.println("d==c "+(d==c));
-        // System.out.println("d==c "+Double.compare(d,c));
-//         tdl.convertTeamSet();
-         tdl.convertStriker();
 //         tdl.mergeLocalization();
+
 //         tdl.compareLocalization();
+
+           tdl.checkNewFile();
+
+//         tdl.convertTeamSet();
+
+//         tdl.convertStriker();
+
+
+
+
         // tdl.testReadCard();
          
 //         tdl.readRandomPick();
-        
-//        tdl.checkNewFile();
-         
+
 //        tdl.loadQuiz();
-        
-        
+
 //        tdl.testIfNewUniform();
 
     }

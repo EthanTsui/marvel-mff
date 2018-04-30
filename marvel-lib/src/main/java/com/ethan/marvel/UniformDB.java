@@ -21,7 +21,8 @@ public class UniformDB {
     
     private Map<String, Uniform> uniforms = new TreeMap<String, Uniform>();
     private Map<String, List<Uniform>> uniformsByType = new TreeMap<String, List<Uniform>>();
-    
+    private Map<Integer, List<Uniform>> uniformsByHero = new TreeMap<Integer, List<Uniform>>();
+    private Map<Integer, List<Uniform>> uniformsByHeroBelong = new TreeMap<Integer, List<Uniform>>();
     
     private UniformDB() {
         load();
@@ -168,5 +169,38 @@ public class UniformDB {
         return uniforms;
     }
     
-    
+
+    public List<Uniform> getUniformsByHero(int heroId) {
+        if(!uniformsByHero.containsKey(heroId)) {
+            List<Uniform> unis = new ArrayList<Uniform>();
+            for(Uniform u: uniforms.values()) {
+                if(u.getHero().getHeroId()==heroId) {
+                    unis.add(u);
+                }
+            }
+
+            uniformsByHero.put(heroId,unis);
+
+        }
+
+        return uniformsByHero.get(heroId);
+
+    }
+
+    public List<Uniform> getUniformsByHeroBelong(int heroId) {
+        if(!uniformsByHeroBelong.containsKey(heroId)) {
+            List<Uniform> unis = new ArrayList<Uniform>();
+            for(Uniform u: uniforms.values()) {
+                for(Uniform ru: u.getRequiredUniforms().values()) {
+                    if(ru.getHero().getHeroId()==heroId) {
+                        unis.add(u);
+                    }
+                }
+            }
+
+            uniformsByHeroBelong.put(heroId, unis);
+        }
+
+        return uniformsByHeroBelong.get(heroId);
+    }
 }
