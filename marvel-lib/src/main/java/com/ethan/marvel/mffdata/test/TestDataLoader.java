@@ -35,19 +35,6 @@ public class TestDataLoader {
     public TestDataLoader() {
         // TODO Auto-generated constructor stub
     }
-
-    public static void r99(int i,int j) {
-        System.out.println(i+" * "+ j + " = "+(i*j++));
-
-        if(j>=10) {
-            j=1;
-            i++;
-        }
-        if(i>=10)  {
-            return;
-        }
-        r99(i,j);
-    }
     
     /**
      * @param args
@@ -216,7 +203,7 @@ public class TestDataLoader {
         // bw.close();
         //
         // } catch (IOException e) {
-        // // TODO Auto-generated catch block
+        //
         // e.printStackTrace();
         // }
 
