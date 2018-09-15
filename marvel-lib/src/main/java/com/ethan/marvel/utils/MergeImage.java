@@ -38,7 +38,6 @@ public class MergeImage {
         m.generateAllFromMFFDATA();
 //        m.runCard();
 
-        
 //        m.runmushroom();
     }
     
@@ -114,8 +113,8 @@ public class MergeImage {
     
     public void run() {
         try {
-            int fixPx = 36; // modify here!!!
-            int lastImageIndex = 157; // modify here!!!
+            int fixPx = 48; // modify here!!!
+            int lastImageIndex = 169; // modify here!!!
             
             
             int w = fixPx * 10;

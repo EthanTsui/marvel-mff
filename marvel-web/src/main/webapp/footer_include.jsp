@@ -11,4 +11,4 @@
   ga('send', 'pageview');
 
 </script>
-<div>This is a fan-made website about an excellent mobile game, Marvel Future Fight developed by netmarble monster inc.</div>
+<div>my In-Game-Name(IGN): Ethan Tsui, this is a fan-made website about an excellent mobile game, Marvel Future Fight developed by netmarble monster inc.</div>

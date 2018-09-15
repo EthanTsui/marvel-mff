@@ -15,14 +15,14 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 <style>
   .allhero {
-  background: url("img/allheroes48.3.9.0.png") no-repeat;
+  background: url("img/allheroes48.4.4.0.png") no-repeat;
   width:48px;
   height:48px;
   margin: 2px;
   display:block;
   }
    .allhero36 {
-  background: url("img/allheroes36.3.9.0.png") no-repeat;
+  background: url("img/allheroes36.4.4.0.png") no-repeat;
   width:36px;
   height:36px;
   margin: 2px;
@@ -30,7 +30,7 @@
   } 
 
   .allhead {
-  background: url("img/allhead64.4.0.1.png") no-repeat;
+  background: url("img/allhead64.4.4.0.png") no-repeat;
   width:64px;
   height:64px;
   margin: 2px;

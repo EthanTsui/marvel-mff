@@ -80,6 +80,10 @@ public class CardDB {
         newcard.loadData(new File("/data/marvel/new.card.list.txt"), "UTF-8", "\t", 0);
 
         for (int i = 1; i <= 9999; i++) {
+            if(i>=82) {
+                break;
+            }
+
             if (!img.containsKey("cc_" + prefixZero(i, 4))) {
                 break;
             }

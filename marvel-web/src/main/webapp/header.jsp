@@ -8,7 +8,7 @@ if (request.getParameter("lang") != null && request.getParameter("lang").length(
 }
 
 %>    
-<h1><%= LanguageHelper.getInstance().getInterfaceName(lang, "header.header") %> <span style="font-size:12pt">(game version 4.0.1, 2018/04/25)</span></h1>
+<h1><%= LanguageHelper.getInstance().getInterfaceName(lang, "header.header") %> <span style="font-size:12pt">(game version 4.4.0, 2018/09/13)</span></h1>
 
 <h3><a href="./QueryTeam?lang=<%=lang %>"><%=LanguageHelper.getInstance().getInterfaceName(lang, "header.func.team.combination") %></a> 
 | <a href="./heroList.jsp?lang=<%=lang %>"><%=LanguageHelper.getInstance().getInterfaceName(lang, "header.func.herolist") %></a> 

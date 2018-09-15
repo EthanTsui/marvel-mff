@@ -533,6 +533,36 @@ public class HeroTeam {
             abi.put("ctr", nu);
             
         }
+        else if("GHOST".equals(impl)) {
+            Unit nu = new Unit();
+            nu.setUnit("%");
+            nu.setValue(25f+ ((float) heroMastered-1) * 5f);
+
+            abi.put("aatk", nu);
+        }
+        else if("WASP_NADIA".equals(impl)) {
+            Unit nu = new Unit();
+            nu.setUnit("%");
+            nu.setValue(1f+ ((float) heroMastered-1) * 2f);
+
+            abi.put("do", nu);
+        }
+        else if("IRON_HAMMER".equals(impl)) {
+            Unit nu = new Unit();
+            nu.setUnit("%");
+            nu.setValue((float) heroMastered * 4f);
+            abi.put("ct", nu);
+
+            Unit nu2 = new Unit();
+            nu2.setUnit("%");
+            nu2.setValue(5f+ ((float) heroMastered-1) * 2f);
+            abi.put("eatk", nu2);
+
+            Unit nu3 = new Unit();
+            nu3.setUnit("%");
+            nu3.setValue(5f+ ((float) heroMastered-1) * 2f);
+            abi.put("ild", nu3);
+        }
     }
 
     public HashMap<String, Unit> getHeroDetail(int heroMastered, int heroOrder) {
